@@ -17,7 +17,7 @@
     }
   ],
   "dependencies": {
-    "kafka-node": ">= 0.1.9",
+    "kafka-node": "git://github.com/nokk/kafka-node",
     "winston": ">= 0.7.2"
   },
   "devDependencies": {
