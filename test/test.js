@@ -12,7 +12,7 @@ var client;
 var producer;
 var consumer;
 var topic = '_exist_topic_test';
-var zookeeperHost = 'kafkasetup:2181';
+var zookeeperHost = 'localhost:2181';
 var logger;
 
 before(function (done) {
@@ -30,7 +30,8 @@ before(function (done) {
     handleExceptions: true
   };
   winston.add(winston.transports.Kafka, config);
-  var logger = new (winston.Logger)({ exitOnError: false });
+  logger = new (winston.Logger)({ exitOnError: false });
+  done();
 })
 
 // before(function (done) {
@@ -56,11 +57,11 @@ describe('Kafka transport', function () {
 
   describe('test kafka transport', function () {
 
-    it('should fail if topic does not exist', function (done) {
+    it.skip('should fail if topic does not exist', function (done) {
       done(false);
     });
 
-    it('should insert message without meta' function (done) {
+    it('should insert message without meta', function (done) {
       logger.log('info', 'Message w/o meta', function (err, data) {
         done(err, data);
       });
@@ -76,11 +77,6 @@ describe('Kafka transport', function () {
       logger.log('warn', 'Warning message', function (err, data) {
         done(err, data)
       });
-    });
-
-    it('should insert error with stacktrace', function (done) {
-      //logger.log('error', )
-      done(false);
     });
   });
 });
