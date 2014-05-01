@@ -1,6 +1,6 @@
 {
   "name": "winston-kafka",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Kafka transport for winston",
   "author": "Magnus Ronager <magnus88@gmail.com>",
   "keywords": [
@@ -10,12 +10,7 @@
     "transport",
     "winston"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": ""
-    }
-  ],
+  "license": "MIT"
   "dependencies": {
     "kafka-node": "git://github.com/nokk/kafka-node",
     "winston": ">= 0.7.2"
@@ -26,7 +21,7 @@
   },
   "repository": { 
     "type" : "git", 
-    "url" : ""
+    "url" : "https://github.com/nokk/winston-kafka"
   },
   "bugs": { 
     "url" : ""
