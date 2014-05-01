@@ -14,4 +14,4 @@ branches:
     - stable
 
 before_script:
-  - sleep 4
+  - sleep 10

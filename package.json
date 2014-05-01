@@ -10,7 +10,7 @@
     "transport",
     "winston"
   ],
-  "license": "MIT"
+  "license": "MIT",
   "dependencies": {
     "kafka-node": "git://github.com/nokk/kafka-node",
     "winston": ">= 0.7.2"
