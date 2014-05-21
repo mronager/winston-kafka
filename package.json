@@ -1,6 +1,6 @@
 {
   "name": "winston-kafka",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kafka transport for winston",
   "author": "Magnus Ronager <magnus88@gmail.com>",
   "keywords": [
@@ -19,11 +19,11 @@
     "mocha": ">= 1.14.0",
     "async": ">= 0.2.9"
   },
-  "repository": { 
-    "type" : "git", 
+  "repository": {
+    "type" : "git",
     "url" : "https://github.com/nokk/winston-kafka"
   },
-  "bugs": { 
+  "bugs": {
     "url" : ""
   },
   "engines": {"node" : ">=0.10.0"},

@@ -1,51 +1,36 @@
-var util    = require('util');
+var os = require('os');
+var util = require('util');
 var winston = require('winston');
-var os      = require("os");
-var KafkaClient = require('kafka-node');
+var kafka = require('kafka-node');
 
-var Kafka = winston.transports.Kafka = function (options) {
-  this.name = 'kafka';
-
-  this.level = options.level || 'info';
-  this.topic = options.topic;
-  this.hostname = os.hostname;
-
-  client = new KafkaClient.Client(options.zookeeperHost);
-  this.producer = new KafkaClient.Producer(client);
-};
-
-//
-// Inherit from `winston.Transport` so you can take advantage
-// of the base functionality and `.handleExceptions()`.
-//
+module.exports = winston.transports.Kafka = Kafka;
 util.inherits(Kafka, winston.Transport);
 
-Kafka.prototype._send = function (json, done) {
-  var message = JSON.stringify(json);
-  this.producer.send([{
-    topic: this.topic,
-    messages: [message]
-  }], function (err) {
-    done(err, !err);
-  });
+function Kafka (options) {
+  this.name = 'Kafka';
+  this.level = options.level || 'info';
+  this.topic = options.topic;
+  var client = new kafka.Client(options.host);
+  this.producer = new kafka.Producer(client);
 }
 
-// Send the log to Kafka
-Kafka.prototype.log = function (level, msg, meta, callback) {
-  var self = this;
-  var message = {
-    level: level,
-    message: msg,
-    meta: meta,
-    hostname: this.hostname,
-    timestamp: Date.now()
+Kafka.prototype.log = function (level, message, meta, done) {
+  var data = {
+    level     : level,
+    message   : message,
+    meta      : meta,
+    hostname  : os.hostname,
+    timestamp : Date.now()
   };
-  if (!this.producer.ready) {
-    this.producer.on('ready', function () {
-      self._send(message, callback);
-    });
-  } else {
-    self._send(message, callback);
-  }
-
+  send(data, this.topic, this.producer, done);
 };
+
+function send (data, topic, producer, done) {
+  if (!producer.ready) return done(new Error('producer not ready'));
+  var message = JSON.stringify(data);
+  var payload = {
+    topic    : topic,
+    messages : message
+  };
+  producer.send([payload], done);
+}
